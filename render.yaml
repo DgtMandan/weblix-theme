@@ -1,0 +1,78 @@
+services:
+  - type: web
+    name: weblix-api
+    env: node
+    rootDir: server
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm run start
+    healthCheckPath: /api/health
+    disk:
+      name: weblix-uploads
+      mountPath: /opt/render/project/src/server/uploads
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: CLIENT_URL
+        value: https://weblixtheme.com
+      - key: CLIENT_URLS
+        value: https://weblixtheme.com,https://www.weblixtheme.com
+      - key: API_PUBLIC_URL
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: ADMIN_NAME
+        value: Weblix Admin
+      - key: ADMIN_EMAIL
+        value: mandanyadav900@gmail.com
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GITHUB_CLIENT_ID
+        sync: false
+      - key: GITHUB_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_PLACES_API_KEY
+        sync: false
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_SECRET
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_SECURE
+        value: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: MAIL_FROM
+        value: Weblix Website Builder <hello@weblixtheme.com>
+      - key: LEAD_TO_EMAIL
+        value: mandanyadav900@gmail.com
+      - key: TREND_BLOG_DAILY_LIMIT
+        value: 2
+      - key: TREND_BLOG_GEO
+        value: US
+      - key: TREND_BLOG_STATUS
+        value: published
+      - key: TREND_BLOG_TIMEZONE
+        value: Asia/Kolkata
+      - key: AUDIT_MAX_PAGES
+        value: 25

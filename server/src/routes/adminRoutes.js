@@ -1,0 +1,32 @@
+import express from 'express';
+import { analytics, users } from '../controllers/adminController.js';
+import { deleteAnnouncement, listAnnouncements, saveAnnouncement } from '../controllers/announcementController.js';
+import { deleteCoupon, listCoupons, saveCoupon } from '../controllers/couponController.js';
+import { auditLead, bulkAuditLeads, bulkSendOutreach, createLead, deleteLead, downloadAuditPdf, exportLeads, leadAnalytics, listLeads, searchGoogleLeads, sendLeadOutreach, updateLead } from '../controllers/leadController.js';
+import { adminOnly, protect } from '../middleware/auth.js';
+import { upload } from '../middleware/upload.js';
+
+export const adminRoutes = express.Router();
+
+adminRoutes.get('/analytics', protect, adminOnly, analytics);
+adminRoutes.get('/users', protect, adminOnly, users);
+adminRoutes.get('/coupons', protect, adminOnly, listCoupons);
+adminRoutes.post('/coupons', protect, adminOnly, saveCoupon);
+adminRoutes.put('/coupons/:id', protect, adminOnly, saveCoupon);
+adminRoutes.delete('/coupons/:id', protect, adminOnly, deleteCoupon);
+adminRoutes.get('/leads', protect, adminOnly, listLeads);
+adminRoutes.get('/leads/analytics', protect, adminOnly, leadAnalytics);
+adminRoutes.get('/leads/export', protect, adminOnly, exportLeads);
+adminRoutes.post('/leads', protect, adminOnly, createLead);
+adminRoutes.post('/leads/google-search', protect, adminOnly, searchGoogleLeads);
+adminRoutes.post('/leads/bulk-audit', protect, adminOnly, bulkAuditLeads);
+adminRoutes.post('/leads/bulk-send', protect, adminOnly, bulkSendOutreach);
+adminRoutes.post('/leads/:id/audit', protect, adminOnly, auditLead);
+adminRoutes.get('/leads/:id/audit.pdf', protect, adminOnly, downloadAuditPdf);
+adminRoutes.post('/leads/:id/send-outreach', protect, adminOnly, sendLeadOutreach);
+adminRoutes.put('/leads/:id', protect, adminOnly, updateLead);
+adminRoutes.delete('/leads/:id', protect, adminOnly, deleteLead);
+adminRoutes.get('/announcements', protect, adminOnly, listAnnouncements);
+adminRoutes.post('/announcements', protect, adminOnly, upload.single('image'), saveAnnouncement);
+adminRoutes.put('/announcements/:id', protect, adminOnly, upload.single('image'), saveAnnouncement);
+adminRoutes.delete('/announcements/:id', protect, adminOnly, deleteAnnouncement);

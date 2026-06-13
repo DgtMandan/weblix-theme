@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://weblix.com/sitemap.xml

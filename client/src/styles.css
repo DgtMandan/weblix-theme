@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #FFFFFF;
+  background: #0d0d0d;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  top: 0 !important;
+}
+
+body > .skiptranslate,
+.goog-te-banner-frame,
+.goog-te-balloon-frame,
+.goog-te-gadget,
+.goog-te-gadget span,
+.goog-te-gadget a {
+  display: none !important;
+}
+
+::selection {
+  background: #2155FF;
+  color: #FFFFFF;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0d0d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #2155FF, #4F7BFF);
+  border: 2px solid #0d0d0d;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4F7BFF;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+a[class*="px-"][class*="py-"],
+.font-black,
+.font900 {
+  font-family: "Poppins", "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+button,
+a[class*="px-"][class*="py-"] {
+  border-radius: 10px !important;
+  font-weight: 500 !important;
+}
+
+a[class*="px-5"][class*="py-3"],
+button[class*="px-5"][class*="py-3"] {
+  padding: 0.95rem 1.35rem !important;
+  font-size: 0.95rem !important;
+}
+
+.font700 {
+  font-weight: 700;
+}
+
+.font800 {
+  font-weight: 800;
+}
+
+.font900 {
+  font-weight: 900;
+}
+
+h1.font-black,
+h2.font-black,
+h3.font-black,
+h4.font-black,
+h5.font-black,
+h6.font-black,
+h1.font800,
+h2.font800,
+h3.font800,
+h4.font800,
+h5.font800,
+h6.font800,
+h1.font900,
+h2.font900,
+h3.font900,
+h4.font900,
+h5.font900,
+h6.font900 {
+  font-weight: 500 !important;
+}
+
+h1[class*="text-8xl"],
+h1[class*="text-7xl"] {
+  font-size: clamp(3.15rem, 6.4vw, 5.35rem) !important;
+  line-height: 1.08 !important;
+}
+
+h1[class*="text-6xl"],
+h1[class*="text-5xl"] {
+  font-size: clamp(2.6rem, 5vw, 4.25rem) !important;
+  line-height: 1.1 !important;
+}
+
+h2[class*="text-7xl"],
+h2[class*="text-6xl"] {
+  font-size: clamp(2.3rem, 4.7vw, 3.85rem) !important;
+  line-height: 1.12 !important;
+}
+
+h2[class*="text-5xl"],
+h2[class*="text-4xl"] {
+  font-size: clamp(2rem, 3.6vw, 3rem) !important;
+  line-height: 1.14 !important;
+}
+
+h3[class*="text-3xl"],
+h3[class*="text-2xl"] {
+  font-size: clamp(1.35rem, 2.1vw, 1.75rem) !important;
+  line-height: 1.2 !important;
+}
+
+.premium-grid {
+  background-image:
+    linear-gradient(rgba(33, 85, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(33, 85, 255, 0.08) 1px, transparent 1px);
+  background-size: 42px 42px;
+}

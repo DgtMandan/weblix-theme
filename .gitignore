@@ -1,0 +1,12 @@
+node_modules/
+client/node_modules/
+server/node_modules/
+client/dist/
+.env
+client/.env
+server/.env
+server/uploads/
+.php-preview-router.php
+client/vite.log
+client/vite-error.log
+npm-debug.log*
