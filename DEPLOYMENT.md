@@ -18,6 +18,20 @@ Start Command: npm run start --prefix server
 Health Check Path: /api/health
 ```
 
+If Render shows `Cannot find package 'dotenv'`, the backend dependencies were not installed. Make sure the build command is exactly:
+
+```text
+npm install --prefix server
+```
+
+If the dashboard is using the root build command instead, use:
+
+```text
+npm run build
+```
+
+The Vite chunk-size message is only a frontend warning and does not fail deployment.
+
 Required environment variables:
 
 ```env
