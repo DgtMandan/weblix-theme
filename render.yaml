@@ -2,10 +2,10 @@ services:
   - type: web
     name: weblix-api
     env: node
-    rootDir: server
+    rootDir: .
     plan: starter
-    buildCommand: npm install
-    startCommand: npm run start
+    buildCommand: npm install --prefix server
+    startCommand: npm run start --prefix server
     healthCheckPath: /api/health
     disk:
       name: weblix-uploads

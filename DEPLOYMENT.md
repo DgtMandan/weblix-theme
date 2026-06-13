@@ -12,9 +12,9 @@ https://www.weblixtheme.com
 Create a new Render Blueprint from `render.yaml`, or create a Web Service manually:
 
 ```text
-Root Directory: server
-Build Command: npm install
-Start Command: npm run start
+Root Directory: leave blank / repository root
+Build Command: npm install --prefix server
+Start Command: npm run start --prefix server
 Health Check Path: /api/health
 ```
 
