@@ -5,6 +5,7 @@ import { signup, login, logout, me, forgotPassword, resetPassword, updateProfile
 import { protect } from '../middleware/auth.js';
 import { upload } from '../middleware/upload.js';
 import { signToken } from '../utils/token.js';
+import { clientUrl } from '../config/urls.js';
 
 export const authRoutes = express.Router();
 
@@ -23,11 +24,11 @@ authRoutes.post('/reset-password', resetPassword);
 authRoutes.get('/google', passport.authenticate('google', { scope: ['profile', 'email'], session: false }));
 authRoutes.get('/google/callback', passport.authenticate('google', { session: false }), (req, res) => {
   const token = signToken(req.user);
-  res.redirect(`${process.env.CLIENT_URL}/oauth/success?token=${token}`);
+  res.redirect(`${clientUrl()}/oauth/success?token=${token}`);
 });
 
 authRoutes.get('/github', passport.authenticate('github', { scope: ['user:email'], session: false }));
 authRoutes.get('/github/callback', passport.authenticate('github', { session: false }), (req, res) => {
   const token = signToken(req.user);
-  res.redirect(`${process.env.CLIENT_URL}/oauth/success?token=${token}`);
+  res.redirect(`${clientUrl()}/oauth/success?token=${token}`);
 });

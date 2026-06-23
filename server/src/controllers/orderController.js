@@ -8,6 +8,7 @@ import { User } from '../models/User.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { sendLicenseEmail } from '../services/emailService.js';
 import { markCouponUsed, validateCouponForItem } from '../services/couponService.js';
+import { clientUrl } from '../config/urls.js';
 import {
   constructStripeWebhookEvent,
   createProviderOrder,
@@ -157,8 +158,8 @@ export const createOrder = asyncHandler(async (req, res) => {
       item,
       user: req.user,
       amount: finalAmount,
-      successUrl: `${process.env.CLIENT_URL || 'http://localhost:5173'}/checkout/${order._id}?stripe=success`,
-      cancelUrl: `${process.env.CLIENT_URL || 'http://localhost:5173'}/checkout/${order._id}?stripe=cancel`
+      successUrl: `${clientUrl()}/checkout/${order._id}?stripe=success`,
+      cancelUrl: `${clientUrl()}/checkout/${order._id}?stripe=cancel`
     });
     order.providerOrderId = stripeSession.id;
     order.providerSessionId = stripeSession.id;

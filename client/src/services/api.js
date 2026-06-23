@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 const liveApiUrl = 'https://weblix-theme.onrender.com/api';
-const localApiUrl = 'http://localhost:5000/api';
 
-export const API_URL = import.meta.env.VITE_API_URL || (typeof window !== 'undefined' && window.location.hostname !== 'localhost' ? liveApiUrl : localApiUrl);
+const envApiUrl = import.meta.env.VITE_API_URL;
+
+export const API_URL = envApiUrl || liveApiUrl;
 
 export const api = axios.create({
   baseURL: API_URL,

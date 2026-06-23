@@ -4,6 +4,7 @@ import { User } from '../models/User.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { signToken } from '../utils/token.js';
 import { sendLoginOtpEmail, sendSignupOtpEmail } from '../services/emailService.js';
+import { clientUrl } from '../config/urls.js';
 
 function generateOtp() {
   return String(crypto.randomInt(100000, 1000000));
@@ -230,10 +231,9 @@ export const forgotPassword = asyncHandler(async (req, res) => {
   user.resetPasswordExpires = Date.now() + 1000 * 60 * 30;
   await user.save({ validateBeforeSave: false });
 
-  const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
   res.json({
     message: 'Password reset link generated. Connect an email provider in production to send this link.',
-    resetUrl: `${clientUrl}/reset-password/${resetToken}`
+    resetUrl: `${clientUrl()}/reset-password/${resetToken}`
   });
 });
 

@@ -39,7 +39,7 @@ NODE_ENV=production
 PORT=5000
 CLIENT_URL=https://weblixtheme.com
 CLIENT_URLS=https://weblixtheme.com,https://www.weblixtheme.com
-API_PUBLIC_URL=https://your-render-backend-url.onrender.com
+API_PUBLIC_URL=https://weblix-theme.onrender.com
 MONGODB_URI=your_mongodb_atlas_uri
 JWT_SECRET=your_long_random_secret
 JWT_EXPIRES_IN=7d
@@ -96,7 +96,7 @@ Framework: Vite
 Frontend environment variables:
 
 ```env
-VITE_API_URL=https://your-render-backend-url.onrender.com/api
+VITE_API_URL=https://weblix-theme.onrender.com/api
 VITE_GOOGLE_CLIENT_ID=your_google_client_id
 VITE_GITHUB_CLIENT_ID=your_github_client_id
 ```
@@ -134,7 +134,7 @@ https://weblixtheme.com
 https://www.weblixtheme.com
 
 Authorized redirect URI:
-https://your-render-backend-url.onrender.com/api/auth/google/callback
+https://weblix-theme.onrender.com/api/auth/google/callback
 ```
 
 GitHub OAuth:
@@ -144,7 +144,7 @@ Homepage URL:
 https://weblixtheme.com
 
 Authorization callback URL:
-https://your-render-backend-url.onrender.com/api/auth/github/callback
+https://weblix-theme.onrender.com/api/auth/github/callback
 ```
 
 ## 5. Final Live Checks
@@ -157,7 +157,7 @@ https://weblixtheme.com/pricing
 https://weblixtheme.com/templates
 https://weblixtheme.com/blog
 https://weblixtheme.com/login
-https://your-render-backend-url.onrender.com/api/health
+https://weblix-theme.onrender.com/api/health
 ```
 
 Then test:

@@ -3,6 +3,7 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import { analyzeLeadPainPoints, calculateContactabilityScore, calculateSocialProfileScore, generateOutreachEmail, searchGooglePlaces } from '../services/leadFinderService.js';
 import { sendLeadAuditEmail } from '../services/emailService.js';
 import { auditLeadWebsite, createLeadAuditPdf } from '../services/websiteAuditService.js';
+import { clientUrl } from '../config/urls.js';
 
 function buildFilter(query) {
   const filter = {};
@@ -308,7 +309,7 @@ export const trackLeadOpen = asyncHandler(async (req, res) => {
 });
 
 export const trackLeadClick = asyncHandler(async (req, res) => {
-  const target = String(req.query.url || process.env.CLIENT_URL || 'http://localhost:5173');
+  const target = String(req.query.url || clientUrl());
   await Lead.findByIdAndUpdate(req.params.id, {
     $inc: { 'outreach.clickCount': 1 },
     $set: { 'outreach.clickedAt': new Date(), status: 'interested' }

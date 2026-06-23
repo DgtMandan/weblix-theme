@@ -21,6 +21,7 @@ import { errorHandler, notFound } from './middleware/error.js';
 import { Blog } from './models/Blog.js';
 import { stripeWebhook } from './controllers/orderController.js';
 import { trackLeadClick, trackLeadOpen } from './controllers/leadController.js';
+import { clientUrl } from './config/urls.js';
 
 export function createApp() {
   const app = express();
@@ -28,7 +29,7 @@ export function createApp() {
 
   app.set('trust proxy', 1);
   const allowedOrigins = [
-    process.env.CLIENT_URL || 'http://localhost:5173',
+    clientUrl(),
     ...(process.env.CLIENT_URLS || '').split(',').map((origin) => origin.trim()).filter(Boolean)
   ];
 
@@ -59,12 +60,12 @@ export function createApp() {
   app.get('/api/leads/track/open/:id.png', trackLeadOpen);
   app.get('/api/leads/track/click/:id', trackLeadClick);
   app.get('/robots.txt', (req, res) => {
-    const base = process.env.CLIENT_URL || 'http://localhost:5173';
+    const base = clientUrl();
     res.type('text/plain').send(`User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`);
   });
   app.get('/sitemap.xml', async (req, res, next) => {
     try {
-      const base = process.env.CLIENT_URL || 'http://localhost:5173';
+      const base = clientUrl();
       const blogs = await Blog.find({ status: 'published' }).select('slug updatedAt');
       const urls = ['/', '/about', '/pricing', '/templates', '/blog', '/contact', ...blogs.map((blog) => `/blog/${blog.slug}`)];
       res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map((url) => `<url><loc>${base}${url}</loc><changefreq>weekly</changefreq><priority>${url.startsWith('/blog/') ? '0.8' : '0.9'}</priority></url>`).join('')}</urlset>`);
@@ -74,7 +75,7 @@ export function createApp() {
   });
   app.get('/rss.xml', async (req, res, next) => {
     try {
-      const base = process.env.CLIENT_URL || 'http://localhost:5173';
+      const base = clientUrl();
       const blogs = await Blog.find({ status: 'published' }).sort('-publishedAt -createdAt').limit(50);
       res.type('application/rss+xml').send(`<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Weblix Blog</title><link>${base}/blog</link><description>AI website builder, SEO, SaaS and web development articles.</description>${blogs.map((blog) => `<item><title><![CDATA[${blog.title}]]></title><link>${base}/blog/${blog.slug}</link><description><![CDATA[${blog.excerpt || ''}]]></description><pubDate>${new Date(blog.publishedAt || blog.createdAt).toUTCString()}</pubDate></item>`).join('')}</channel></rss>`);
     } catch (error) {

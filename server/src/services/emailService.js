@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import nodemailer from 'nodemailer';
+import { apiPublicUrl, clientUrl } from '../config/urls.js';
 import { createSignedDownloadToken } from '../utils/signedDownload.js';
 
 function getLogoPath() {
@@ -148,8 +149,8 @@ function otpHtml({ user, otp, logoCid, purpose = 'signup' }) {
 
 export async function sendLicenseEmail({ order, user, download }) {
   const transport = getTransport();
-  const dashboardUrl = `${process.env.CLIENT_URL || 'http://localhost:5173'}/dashboard`;
-  const apiBase = process.env.API_PUBLIC_URL || 'http://localhost:5000';
+  const dashboardUrl = `${clientUrl()}/dashboard`;
+  const apiBase = apiPublicUrl();
   const token = createSignedDownloadToken(download, order);
   const downloadUrl = `${apiBase}/api/downloads/email/${download._id}/${token}`;
   const logoPath = getLogoPath();
@@ -256,10 +257,10 @@ export async function sendLeadAuditEmail({ lead, pdfBuffer }) {
   const transport = getTransport();
   if (!lead.email) return { skipped: true, reason: 'Lead has no email address' };
 
-  const apiBase = process.env.API_PUBLIC_URL || 'http://localhost:5000';
-  const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+  const apiBase = apiPublicUrl();
+  const siteUrl = clientUrl();
   const trackingPixelUrl = `${apiBase}/api/leads/track/open/${lead._id}.png`;
-  const clickUrl = `${apiBase}/api/leads/track/click/${lead._id}?url=${encodeURIComponent(`${clientUrl}/pricing`)}`;
+  const clickUrl = `${apiBase}/api/leads/track/click/${lead._id}?url=${encodeURIComponent(`${siteUrl}/pricing`)}`;
   const logoPath = getLogoPath();
   const logoCid = logoPath ? 'weblix-logo@lead-audit' : null;
   const subject = lead.outreachEmailSubject || `Website audit ideas for ${lead.businessName}`;

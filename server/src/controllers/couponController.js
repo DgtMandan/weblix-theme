@@ -4,6 +4,7 @@ import { Order } from '../models/Order.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { createProviderOrder, createStripeCheckoutSession } from '../services/paymentService.js';
 import { normalizeCouponCode, validateCouponForItem } from '../services/couponService.js';
+import { clientUrl } from '../config/urls.js';
 
 export const listCoupons = asyncHandler(async (req, res) => {
   const coupons = await Coupon.find().sort('-createdAt');
@@ -66,8 +67,8 @@ export const applyCouponToOrder = asyncHandler(async (req, res) => {
         item: order.item,
         user: req.user,
         amount: finalAmount,
-        successUrl: `${process.env.CLIENT_URL || 'http://localhost:5173'}/checkout/${order._id}?stripe=success`,
-        cancelUrl: `${process.env.CLIENT_URL || 'http://localhost:5173'}/checkout/${order._id}?stripe=cancel`
+        successUrl: `${clientUrl()}/checkout/${order._id}?stripe=success`,
+        cancelUrl: `${clientUrl()}/checkout/${order._id}?stripe=cancel`
       });
       order.providerOrderId = session.id;
       order.providerSessionId = session.id;
